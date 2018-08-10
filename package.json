@@ -26,6 +26,8 @@
     "@types/http-errors": "^1.6.1",
     "@types/morgan": "^1.7.35",
     "@types/node-sass-middleware": "^0.0.30",
-    "tsc": "^1.20150623.0"
+    "tsc": "^1.20150623.0",
+    "tslint": "^5.11.0",
+    "tslint-config-prettier": "^1.14.0"
   }
 }
