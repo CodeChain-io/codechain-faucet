@@ -1,8 +1,12 @@
 import * as express from "express";
+import { Context } from "../context";
 
-export const router = express.Router();
+export function createRouter(context: Context) {
+    const router = express.Router();
 
-/* GET users listing. */
-router.get("/", (req, res) => {
-    res.send("respond with a resource");
-});
+    router.get("/", (req, res) => {
+        res.send("respond with a resource");
+    });
+
+    return router;
+}

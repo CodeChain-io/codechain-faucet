@@ -1,8 +1,12 @@
 import * as express from "express";
+import { Context } from "../context";
 
-export const router = express.Router();
+export function createRouter(context: Context) {
+    const router = express.Router();
 
-/* GET home page. */
-router.get("/", (req, res) => {
-    res.render("index", { title: "Express" });
-});
+    router.get("/", (req, res) => {
+        res.render("index", { title: "Express" });
+    });
+
+    return router;
+}

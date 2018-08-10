@@ -5,8 +5,9 @@ import * as cookieParser from "cookie-parser";
 import * as logger from "morgan";
 import * as sassMiddleware from "node-sass-middleware";
 
-import { router as indexRouter } from "./routes/index";
-import { router as usersRouter } from "./routes/users";
+import { createRouter as createIndexRouter } from "./routes/index";
+import { createRouter as createUsersRouter } from "./routes/users";
+import { createContext } from "./context";
 
 export const app = express();
 
@@ -26,8 +27,9 @@ app.use(sassMiddleware({
 }));
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/", indexRouter);
-app.use("/users", usersRouter);
+const context = createContext();
+app.use("/", createIndexRouter(context));
+app.use("/users", createUsersRouter(context));
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
