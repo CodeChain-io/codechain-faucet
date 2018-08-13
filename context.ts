@@ -7,11 +7,11 @@ export interface Context {
 }
 
 export function createContext(): Context {
-    const codechainSDK = new SDK({
-        server: "http://localhost:8080"
-    });
-
     const config = require("config");
+
+    const codechainSDK = new SDK({
+        server: config.codechainURL
+    });
 
     return {
         codechainSDK,
