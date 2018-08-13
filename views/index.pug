@@ -2,4 +2,7 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}
+  p
+    | Write your codechain account and get CCC
+  input#sns-url(type="text", name="sns-url")
+  button#sns-button(type="submit") Get CCC
