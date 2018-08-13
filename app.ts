@@ -5,6 +5,7 @@ import * as cookieParser from "cookie-parser";
 import * as logger from "morgan";
 import * as sassMiddleware from "node-sass-middleware";
 
+import { createRouter as createApiRouter } from "./routes/api";
 import { createRouter as createIndexRouter } from "./routes/index";
 import { createRouter as createUsersRouter } from "./routes/users";
 import { createContext } from "./context";
@@ -30,6 +31,7 @@ app.use(express.static(path.join(__dirname, "public")));
 const context = createContext();
 app.use("/", createIndexRouter(context));
 app.use("/users", createUsersRouter(context));
+app.use("/api", createApiRouter(context));
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
