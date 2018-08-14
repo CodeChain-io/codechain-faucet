@@ -2,32 +2,62 @@
  * Module dependencies.
  */
 
-import { app } from "../app";
+import { createApp } from "../app";
+import { closeContext } from "../context";
 import * as debugModule from "debug";
 const debug = debugModule("faucet:server");
 import * as http from "http";
-// var http = require("http");
 
-/**
- * Get port from environment and store in Express.
- */
+main();
 
-const port = normalizePort(process.env.PORT || "3000");
-app.set("port", port);
+async function main() {
+    try {
+        const [app, context] = await createApp();
 
-/**
- * Create HTTP server.
- */
+        /**
+         * Get port from environment and store in Express.
+         */
 
-const server = http.createServer(app);
+        const port = normalizePort(process.env.PORT || "3000");
+        app.set("port", port);
 
-/**
- * Listen on provided port, on all network interfaces.
- */
+        /**
+         * Create HTTP server.
+         */
 
-server.listen(port);
-server.on("error", onError);
-server.on("listening", onListening);
+        const server = http.createServer(app);
+
+        /**
+         * Listen on provided port, on all network interfaces.
+         */
+
+        server.listen(port);
+        server.on("error", onError(port));
+        server.on("listening", onListening(server));
+
+        process.on("SIGINT", async () => {
+            console.log("Closing server...");
+
+            try {
+                await new Promise((resolve, reject) => {
+                    server.close((err: any) => {
+                        if (err) { reject(err); return; }
+                        resolve();
+                    })
+                });
+            } catch (err) {
+                console.error(`Error at closing ${err}`);
+            } finally {
+                console.log("Cleanup context");
+                await closeContext(context);
+                process.exit();
+            }
+        })
+
+    } catch (err) {
+        console.error(`Error at main ${err}`);
+    }
+}
 
 /**
  * Normalize a port into a number, string, or false.
@@ -53,27 +83,29 @@ function normalizePort(val: string) {
  * Event listener for HTTP server "error" event.
  */
 
-function onError(error: any) {
-    if (error.syscall !== "listen") {
-        throw error;
-    }
-
-    const bind = typeof port === "string"
-        ? "Pipe " + port
-        : "Port " + port;
-
-    // handle specific listen errors with friendly messages
-    switch (error.code) {
-        case "EACCES":
-            console.error(bind + " requires elevated privileges");
-            process.exit(1);
-            break;
-        case "EADDRINUSE":
-            console.error(bind + " is already in use");
-            process.exit(1);
-            break;
-        default:
+function onError(port: any): (error: any) => void {
+    return (error: any) => {
+        if (error.syscall !== "listen") {
             throw error;
+        }
+
+        const bind = typeof port === "string"
+            ? "Pipe " + port
+            : "Port " + port;
+
+        // handle specific listen errors with friendly messages
+        switch (error.code) {
+            case "EACCES":
+                console.error(bind + " requires elevated privileges");
+                process.exit(1);
+                break;
+            case "EADDRINUSE":
+                console.error(bind + " is already in use");
+                process.exit(1);
+                break;
+            default:
+                throw error;
+        }
     }
 }
 
@@ -81,10 +113,12 @@ function onError(error: any) {
  * Event listener for HTTP server "listening" event.
  */
 
-function onListening() {
-    const addr = server.address();
-    const bind = typeof addr === "string"
-        ? "pipe " + addr
-        : "port " + addr.port;
-    debug("Listening on " + bind);
+function onListening(server: any): () => void {
+    return () => {
+        const addr = server.address();
+        const bind = typeof addr === "string"
+            ? "pipe " + addr
+            : "port " + addr.port;
+        debug("Listening on " + bind);
+    }
 }
