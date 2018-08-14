@@ -4,4 +4,6 @@ export interface ServerConfig {
     twitterConsumerKey: string;
     twitterConsumerSecret: string;
     maketingText: string;
+    recaptchaSiteKey: string;
+    recaptchaSecret: string;
 }

@@ -4,6 +4,7 @@ import { giveCCC } from "../logic";
 import { getTwitContent } from "../logic/twitter";
 import { FaucetError, ErrorCode } from "../logic/error";
 import { findCCCAddressFromText } from "../logic/index";
+import { verifyCaptcha } from "../logic/captcha";
 
 export function createRouter(context: Context) {
     const router = express.Router();
@@ -29,10 +30,14 @@ export function createRouter(context: Context) {
 
     router.post("/requestMoneyBySNS", async (req, res) => {
         console.log(`req body is ${JSON.stringify(req.body)}`);
-        const { url } = req.body;
+        const { url, captcha } = req.body;
 
         const amount = "1";
         try {
+            const captchaResult = await verifyCaptcha(context, captcha);
+            if (captchaResult === false) {
+                throw new FaucetError(ErrorCode.InvalidCaptcha, null);
+            }
             const content = await getTwitContent(context, url);
             if (content.indexOf(context.config.maketingText) === -1) {
                 console.log(`maketingText: ${context.config.maketingText}\n content: ${content}`);

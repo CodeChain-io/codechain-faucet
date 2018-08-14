@@ -4,6 +4,7 @@ export enum ErrorCode {
     TooManyRequest = 2,
     InvalidTwitterURL = 3,
     NoMaketingText = 4,
+    InvalidCaptcha = 5,
 }
 
 export class FaucetError extends Error {
