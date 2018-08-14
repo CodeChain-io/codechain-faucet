@@ -8,6 +8,5 @@ export async function initialize(db: sqlite3.Database): Promise<void> {
 id INTEGER PRIMARY KEY ASC,
 address TEXT,
 createdAt TEXT
-)`
-    );
+)`, {});
 }

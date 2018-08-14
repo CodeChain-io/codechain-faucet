@@ -14,6 +14,7 @@
     "debug": "~2.6.9",
     "express": "~4.16.0",
     "http-errors": "~1.6.2",
+    "moment": "^2.22.2",
     "morgan": "~1.9.0",
     "node-sass-middleware": "0.11.0",
     "pug": "2.0.0-beta11",
@@ -22,10 +23,11 @@
     "typescript": "^3.0.1"
   },
   "devDependencies": {
-    "@types/debug": "^0.0.30",
     "@types/cookie-parser": "^1.4.1",
+    "@types/debug": "^0.0.30",
     "@types/express": "^4.16.0",
     "@types/http-errors": "^1.6.1",
+    "@types/moment": "^2.13.0",
     "@types/morgan": "^1.7.35",
     "@types/node-sass-middleware": "^0.0.30",
     "@types/sqlite3": "^3.1.3",
