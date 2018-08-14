@@ -4,7 +4,7 @@ export enum ErrorCode {
     ToManyRequest = 2,
 }
 
-export class HelperError extends Error {
+export class FaucetError extends Error {
     public code: ErrorCode;
     public internal: Error | null;
     public internalString: string;
@@ -13,7 +13,7 @@ export class HelperError extends Error {
         super(ErrorCode[code]);
         this.code = code;
         this.message = ErrorCode[code];
-        this.name = "HelperError";
+        this.name = "FaucetError";
         this.internal = internal;
         this.internalString = String(internal);
     }

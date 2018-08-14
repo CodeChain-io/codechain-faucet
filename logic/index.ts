@@ -2,7 +2,7 @@ import { Context } from "context";
 import { U256, H256 } from "codechain-sdk/lib/core/classes";
 import * as historyModel from "../model/history";
 import * as moment from "moment";
-import { HelperError, ErrorCode } from "./error";
+import { FaucetError, ErrorCode } from "./error";
 
 export async function giveCCC(context: Context, to: string, amount: string): Promise<H256> {
     try {
@@ -12,7 +12,7 @@ export async function giveCCC(context: Context, to: string, amount: string): Pro
         if (lastTime !== null) {
             const yesterday = moment().subtract(1, "day");
             if (lastTime.isAfter(yesterday)) {
-                throw new HelperError(ErrorCode.ToManyRequest, null);
+                throw new FaucetError(ErrorCode.ToManyRequest, null);
             }
         }
 
@@ -20,7 +20,7 @@ export async function giveCCC(context: Context, to: string, amount: string): Pro
         try {
             toAddress = sdk.key.classes.PlatformAddress.fromString(to);
         } catch (err) {
-            throw new HelperError(ErrorCode.InvalidAddress, err);
+            throw new FaucetError(ErrorCode.InvalidAddress, err);
         }
         const parcel = sdk.core.createPaymentParcel({
             recipient: toAddress,
@@ -42,8 +42,8 @@ export async function giveCCC(context: Context, to: string, amount: string): Pro
         await historyModel.insert(context, to);
         return result;
     } catch (err) {
-        if (err.name !== "HelperError") {
-            throw new HelperError(ErrorCode.Unknown, err);
+        if (err.name !== "FaucetError") {
+            throw new FaucetError(ErrorCode.Unknown, err);
         } else {
             throw err;
         }
