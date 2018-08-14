@@ -10,19 +10,18 @@ export function createRouter(context: Context) {
         const { to } = req.body;
         const amount = "1";
 
-        giveCCC(context, to, amount)
-            .then(hash => {
-                res.json({
-                    success: true,
-                    hash
-                });
-            })
-            .catch(err => {
-                res.json({
-                    success: false,
-                    err
-                })
+        try {
+            const hash = await giveCCC(context, to, amount);
+            res.json({
+                success: true,
+                hash
             });
+        } catch (err) {
+            res.json({
+                success: false,
+                err
+            })
+        }
     });
 
     return router;
