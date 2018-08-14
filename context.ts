@@ -2,6 +2,8 @@ import { SDK } from "codechain-sdk";
 import { ServerConfig } from "./logic/config";
 import * as sqlite3 from "sqlite3";
 import { initialize as dbInitialize } from "./model/initialize";
+import * as Twit from "twit";
+import { createTwit } from "./logic/twitter";
 
 let database = sqlite3.Database;
 if (process.env.NODE_ENV !== "production") {
@@ -12,6 +14,7 @@ export interface Context {
     codechainSDK: SDK;
     config: ServerConfig;
     db: sqlite3.Database;
+    twit: Twit;
 }
 
 export async function createContext(): Promise<Context> {
@@ -31,10 +34,13 @@ export async function createContext(): Promise<Context> {
 
     await dbInitialize(db);
 
+    const twit = createTwit(config);
+
     return {
         codechainSDK,
         config,
-        db
+        db,
+        twit
     }
 }
 

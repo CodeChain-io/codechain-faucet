@@ -1,4 +1,7 @@
 export interface ServerConfig {
     faucetPrivateKey: string;
     codechainURL: string;
+    twitterConsumerKey: string;
+    twitterConsumerSecret: string;
+    maketingText: string;
 }

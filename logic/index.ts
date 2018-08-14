@@ -3,6 +3,7 @@ import { U256, H256 } from "codechain-sdk/lib/core/classes";
 import * as historyModel from "../model/history";
 import * as moment from "moment";
 import { FaucetError, ErrorCode } from "./error";
+import { PlatformAddress } from "codechain-sdk/lib/key/classes";
 
 export async function giveCCC(context: Context, to: string, amount: string): Promise<H256> {
     try {
@@ -12,7 +13,7 @@ export async function giveCCC(context: Context, to: string, amount: string): Pro
         if (lastTime !== null) {
             const yesterday = moment().subtract(1, "day");
             if (lastTime.isAfter(yesterday)) {
-                throw new FaucetError(ErrorCode.ToManyRequest, null);
+                throw new FaucetError(ErrorCode.TooManyRequest, null);
             }
         }
 
@@ -48,4 +49,23 @@ export async function giveCCC(context: Context, to: string, amount: string): Pro
             throw err;
         }
     }
+}
+
+export function findCCCAddressFromText(text: string): string | null {
+    const reg = /ccc\w{40}/g;
+    const matches = text.match(reg);
+    if (matches === null) {
+        return null;
+    }
+
+    for (const match of matches) {
+        try {
+            PlatformAddress.fromString(match);
+        } catch (err) {
+            continue;
+        }
+        return match;
+    }
+
+    return null;
 }
