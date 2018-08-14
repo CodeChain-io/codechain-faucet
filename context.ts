@@ -1,5 +1,5 @@
 import { SDK } from "codechain-sdk";
-import { ServerConfig } from "./util/config";
+import { ServerConfig } from "./logic/config";
 import * as sqlite3 from "sqlite3";
 import { initialize as dbInitialize } from "./model/initialize";
 

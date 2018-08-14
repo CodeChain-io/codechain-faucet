@@ -1,4 +1,4 @@
-import { Context } from "../context";
+import { Context } from "context";
 import { U256, H256 } from "codechain-sdk/lib/core/classes";
 import * as historyModel from "../model/history";
 import * as moment from "moment";

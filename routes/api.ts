@@ -1,6 +1,6 @@
 import * as express from "express";
 import { Context } from "../context";
-import { giveCCC } from "../util/CCSDKHelper";
+import { giveCCC } from "../logic";
 
 export function createRouter(context: Context) {
     const router = express.Router();
