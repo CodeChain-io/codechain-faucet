@@ -1,10 +1,11 @@
 import * as express from "express";
 import { Context } from "../context";
 import { giveCCC } from "../logic";
-import { getTwitContent } from "../logic/twitter";
+import { getTwitContent, parseTwitterURL } from "../logic/twitter";
 import { FaucetError, ErrorCode } from "../logic/error";
 import { findCCCAddressFromText } from "../logic/index";
 import { verifyCaptcha } from "../logic/captcha";
+import * as historyModel from "../model/history";
 
 export function createRouter(context: Context) {
     const router = express.Router();
@@ -42,6 +43,12 @@ export function createRouter(context: Context) {
             if (content.indexOf(context.config.maketingText) === -1) {
                 console.log(`maketingText: ${context.config.maketingText}\n content: ${content}`);
                 throw new FaucetError(ErrorCode.NoMaketingText, null);
+            }
+
+            const tweetId = parseTwitterURL(url) as string;
+            const exists = await historyModel.existsByTweetId(context, tweetId);
+            if (exists) {
+                throw new FaucetError(ErrorCode.DuplicatedTweet, null);
             }
 
             const to = findCCCAddressFromText(content);

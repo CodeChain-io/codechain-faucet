@@ -5,6 +5,7 @@ export enum ErrorCode {
     InvalidTwitterURL = 3,
     NoMaketingText = 4,
     InvalidCaptcha = 5,
+    DuplicatedTweet = 6,
 }
 
 export class FaucetError extends Error {

@@ -30,7 +30,7 @@ export async function getTwitContent(context: Context, fullUrl: string): Promise
     }
 }
 
-function parseTwitterURL(url: string): string | null {
+export function parseTwitterURL(url: string): string | null {
     const reg = /.*twitter.com\/[^\/]+\/status\/(\d+)/g;
     const result = reg.exec(url);
     if (result) {
