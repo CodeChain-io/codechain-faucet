@@ -24,9 +24,9 @@ export async function createContext(): Promise<Context> {
         server: config.codechainURL
     });
 
-    // TODO: use file system database
     const db = await new Promise<sqlite3.Database>((resolve, reject) => {
-        const newDB = new database(":memory:", (err: Error) => {
+        const dbFileName = process.env.NODE_ENV === "production" ? "faucet.db" : ":memory:";
+        const newDB = new database(dbFileName, (err: Error) => {
             if (err) { reject(err); return; }
             resolve(newDB);
         });
