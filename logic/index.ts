@@ -36,7 +36,7 @@ export async function giveCCC(context: Context, to: string, amount: string): Pro
         const signedParcel = parcel.sign({
             secret: context.config.faucetPrivateKey,
             nonce,
-            fee: 10, // will be changed
+            fee: String(100 * 1000 * 1000),
         })
 
         const result = await sdk.rpc.chain.sendSignedParcel(signedParcel);
