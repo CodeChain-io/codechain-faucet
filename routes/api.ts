@@ -14,7 +14,7 @@ export function createRouter(context: Context) {
         console.log(`req body is ${JSON.stringify(req.body)}`);
         const { url, captcha } = req.body;
 
-        const amount = "1";
+        const amount = String(1000 * 1000 * 1000);
         try {
             const captchaResult = await verifyCaptcha(context, captcha);
             if (captchaResult === false) {
