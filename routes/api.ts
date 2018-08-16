@@ -10,25 +10,6 @@ import * as historyModel from "../model/history";
 export function createRouter(context: Context) {
     const router = express.Router();
 
-    router.post("/requestMoney", async (req, res) => {
-        console.log(`req body is ${JSON.stringify(req.body)}`);
-        const { to } = req.body;
-        const amount = "1";
-
-        try {
-            const hash = await giveCCC(context, to, amount);
-            res.json({
-                success: true,
-                hash
-            });
-        } catch (err) {
-            res.json({
-                success: false,
-                err
-            })
-        }
-    });
-
     router.post("/requestMoneyBySNS", async (req, res) => {
         console.log(`req body is ${JSON.stringify(req.body)}`);
         const { url, captcha } = req.body;
