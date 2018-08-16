@@ -1,21 +1,18 @@
 $(document).ready(function () {
-    console.log("HI");
-
     $("#sns-button").click(() => {
-        console.log("Call captcha");
+        $("#sns-button").prop('disabled', true);
         grecaptcha.execute();
     });
 });
 
 function onCaptchaSuccess(captchaResult) {
     var input = $("#sns-url").val();
-    console.log("Input is " + input);
     closeAllMessage();
     $.post("/api/requestMoneyBySNS", {
         url: input,
         captcha: captchaResult
     }, function (data) {
-        console.log("get data from server " + JSON.stringify(data));
+        $("#sns-button").prop('disabled', false);
         if (data.success) {
             showSuccessMessage(data.message);
         } else {
@@ -26,16 +23,19 @@ function onCaptchaSuccess(captchaResult) {
 }
 
 function showErrorMessage(text) {
-    $("#error-alert > span").text(text);
-    $("#error-alert").show();
+    $("#sns-url").popover({
+        container: ".input-popover",
+        content: text,
+        placement: "top",
+        trigger: "manual"
+    });
+    $("#sns-url").popover("show");
 }
 
 function showSuccessMessage(text) {
-    $("#success-alert > span").text(text);
-    $("#success-alert").show();
+    console.log("Success is not implementec yet " + text);
 }
 
 function closeAllMessage() {
-    $("#error-alert").hide();
-    $("#success-alert").hide();
+    $("#sns-url").popover("dispose");
 }
