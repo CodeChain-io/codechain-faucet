@@ -9,14 +9,16 @@ export enum ErrorCode {
 }
 
 export class FaucetError extends Error {
-    public code: string;
+    public code: ErrorCode;
+    public codeName: string;
     public name: string;
     public internal: Error | null;
     public internalString: string;
 
     constructor(code: ErrorCode, internal: Error | null) {
         super(ErrorCode[code]);
-        this.code = ErrorCode[code];
+        this.code = code;
+        this.codeName = ErrorCode[code];
         this.name = "FaucetError";
         this.internal = internal;
         this.internalString = String(internal);

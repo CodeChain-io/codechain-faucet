@@ -6,6 +6,7 @@ import { FaucetError, ErrorCode } from "../logic/error";
 import { findCCCAddressFromText } from "../logic/index";
 import { verifyCaptcha } from "../logic/captcha";
 import * as historyModel from "../model/history";
+import { successMessage, errorMessage } from "../logic/message";
 
 export function createRouter(context: Context) {
     const router = express.Router();
@@ -40,15 +41,16 @@ export function createRouter(context: Context) {
             const hash = await giveCCC(context, to, amount);
             res.json({
                 success: true,
-                hash
+                hash,
+                message: successMessage(context, hash.toEncodeObject())
             });
         } catch (err) {
             res.json({
                 success: false,
-                err
+                err,
+                message: errorMessage(context, err)
             })
         }
-
     });
 
     return router;

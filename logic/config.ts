@@ -6,4 +6,5 @@ export interface ServerConfig {
     maketingText: string;
     recaptchaSiteKey: string;
     recaptchaSecret: string;
+    blockExplorerURL: string;
 }

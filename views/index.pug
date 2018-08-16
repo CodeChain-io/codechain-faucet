@@ -4,12 +4,22 @@ block content
   .container
     h1= title
     p
-      | Write your codechain account and get CCC
+      | Tweet your CodeChain address and "I love CodeChain"
+      br
+      | Please enter the URL of your tweet in the below input box
     div#recaptcha.g-recaptcha(
       data-sitekey=recaptchaSiteKey,
       data-callback="onCaptchaSuccess",
       data-size="invisible"
     )
+    #error-alert.alert.alert-danger.alert-dismissible.fade.show(role=alert, style="display: none;")
+      span
+      button(type="button", class="close", data-faucet-hide="alert", aria-label="Close")
+        span(aria-hidden="true") &times;
+    #success-alert.alert.alert-success.alert-dismissible.fade.show(role=alert, style="display: none;")
+      span
+      button(type="button", class="close", data-faucet-hide="alert", aria-label="Close")
+        span(aria-hidden="true") &times;
     .input-group
       input#sns-url.form-control(type="text", name="sns-url")
       .input-group-append

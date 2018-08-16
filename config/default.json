@@ -5,5 +5,6 @@
     "twitterConsumerSecret": "",
     "maketingText": "I love codechain",
     "recaptchaSiteKey": "",
-    "recaptchaSecret": ""
+    "recaptchaSecret": "",
+    "blockExplorerURL": "http://127.0.0.1:3000"
 }
