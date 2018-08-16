@@ -30,17 +30,34 @@ export async function giveCCC(context: Context, to: string, amount: string): Pro
 
         const accountId = sdk.util.getAccountIdFromPrivate(context.config.faucetPrivateKey);
         const platformAddress = sdk.key.classes.PlatformAddress.fromAccountId(accountId);
-        // TODO: same nonce can be used when requests came simultaneously
-        const nonce = await sdk.rpc.chain.getNonce(platformAddress) as U256;
+        let nonce = context.nonce;
 
-        const signedParcel = parcel.sign({
+        let signedParcel = parcel.sign({
             secret: context.config.faucetPrivateKey,
             nonce,
             fee: String(100 * 1000 * 1000),
         })
 
-        const result = await sdk.rpc.chain.sendSignedParcel(signedParcel);
+        let result;
+        try {
+            result = await sdk.rpc.chain.sendSignedParcel(signedParcel);
+        } catch (err) {
+            console.warn("Error from codechain " + err);
+            console.warn("Retry with refreshed nonce");
+
+            nonce = await sdk.rpc.chain.getNonce(platformAddress) as U256;
+
+            signedParcel = parcel.sign({
+                secret: context.config.faucetPrivateKey,
+                nonce,
+                fee: String(100 * 1000 * 1000),
+            })
+            result = await sdk.rpc.chain.sendSignedParcel(signedParcel);
+        }
+
         await historyModel.insert(context, to);
+        context.nonce = nonce.increase();
+
         return result;
     } catch (err) {
         if (err.name !== "FaucetError") {
