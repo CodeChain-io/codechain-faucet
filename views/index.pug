@@ -1,13 +1,16 @@
 extends layout
 
 block content
-  h1= title
-  p
-    | Write your codechain account and get CCC
-  input#sns-url(type="text", name="sns-url")
-  div#recaptcha.g-recaptcha(
-    data-sitekey=recaptchaSiteKey,
-    data-callback="onCaptchaSuccess",
-    data-size="invisible"
-  )
-  button#sns-button(type="submit") Get CCC
+  .container
+    h1= title
+    p
+      | Write your codechain account and get CCC
+    div#recaptcha.g-recaptcha(
+      data-sitekey=recaptchaSiteKey,
+      data-callback="onCaptchaSuccess",
+      data-size="invisible"
+    )
+    .input-group
+      input#sns-url.form-control(type="text", name="sns-url")
+      .input-group-append
+        button#sns-button.btn.btn-outline-secondary(type="submit") Get CCC
