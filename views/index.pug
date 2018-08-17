@@ -8,19 +8,24 @@ block content
     .section-2
       h1.title= title
       span
-        | Write your codechain account and get CCC
+        | Get CCC in the test network
       div#recaptcha.g-recaptcha(
         data-sitekey=recaptchaSiteKey,
         data-callback="onCaptchaSuccess",
         data-size="invisible"
       )
       .input-popover
-      input#sns-url.form-control(type="text", name="sns-url" placeholder="Write twitter URL")
+      input#sns-url.form-control(type="text", name="sns-url" placeholder="Write tweet URL")
       a#sns-button.btn.btn-blue Get CCC
     .section-3
       h2.how How can I get CCC?
       p
-        | 1. 트위터에 I love codechain 문장과 내 코드체인 어드레스를 포함한 트윗을 날려주세요.
+        | 1. Write a tweet with "I love CodeChain" and your codechain address. Here is the <a target="_blank" href="https://twitter.com/PJuhyung/status/1030341568148860928">example tweet</a>.
         br
         br
-        | 2. 해당 트윗 주소를 넣고 Get CCC 버튼을 눌러주세요.
+        | 2. Write the tweet's URL to the input box. And please click the "Get CCC" button.
+    .section-4
+      h2 Caution
+      p
+        | The CCC should be used only for test purpose. We can remove your CCC without any notification.
+
