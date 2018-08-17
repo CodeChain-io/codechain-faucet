@@ -52,21 +52,31 @@ body
     margin-top: 40px
     width: 346px
     box-shadow: 0 0 5px #9E9E9E
+    &:disabled
+      background-color: white
     &::-webkit-input-placeholder /* Chrome/Opera/Safari */
       text-align: center
       color: #BDBDBD
+    &.success::-webkit-input-placeholder
+      color: #00DBB4
     &::-moz-placeholder /* Firefox 19+ */
       text-align: center
       color: #BDBDBD
+      &.success
+        color: #00DBB4
     &:-ms-input-placeholder /* IE 10+ */
       text-align: center
       color: #BDBDBD
+      &.success
+        color: #00DBB4
     &:-moz-placeholder /* Firefox 18- */
       text-align: center
       color: #BDBDBD
-  button
+      &.success
+        color: #00DBB4
+  .btn
     background-color: $faucet-blue
-    color: white
+    color: white !important
     width: 346px
     margin: auto
     margin-top: 10px

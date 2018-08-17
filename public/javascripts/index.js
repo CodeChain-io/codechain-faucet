@@ -33,7 +33,13 @@ function showErrorMessage(text) {
 }
 
 function showSuccessMessage(text) {
-    console.log("Success is not implementec yet " + text);
+    $("#sns-url").prop("disabled", true);
+    $("#sns-url").val("");
+    $("#sns-url").attr("placeholder", "Successful!");
+    $("#sns-url").addClass("success");
+    $("#sns-button").text("Check the transaction on the Explorer");
+    $("#sns-button").off("click");
+    $("#sns-button").prop("href", text).prop("target", "_blank");
 }
 
 function closeAllMessage() {

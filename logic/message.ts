@@ -26,5 +26,5 @@ export function errorMessage(context: Context, error: FaucetError): string {
 
 export function successMessage(context: Context, hash: string): string {
     const { blockExplorerURL } = context.config;
-    return `You received 1 CCC. You can find it at <a href="${blockExplorerURL}/parcel/${hash}">block explorer</a>`;
+    return `${blockExplorerURL}/parcel/${hash}`;
 }
