@@ -4,6 +4,7 @@ import * as path from "path";
 import * as cookieParser from "cookie-parser";
 import * as logger from "morgan";
 import * as sassMiddleware from "node-sass-middleware";
+const morganBody = require("morgan-body");
 
 import { createRouter as createApiRouter } from "./routes/api";
 import { createRouter as createIndexRouter } from "./routes/index";
@@ -28,6 +29,7 @@ export async function createApp(): Promise<[express.Application, Context]> {
         sourceMap: true
     }));
     app.use(express.static(path.join(__dirname, "public")));
+    morganBody(app);
 
     const context = await createContext();
     app.use("/", createIndexRouter(context));
