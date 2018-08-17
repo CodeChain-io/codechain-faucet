@@ -22,7 +22,7 @@ export function createRouter(context: Context) {
                 throw new FaucetError(ErrorCode.InvalidCaptcha, null);
             }
             const content = await getTwitContent(context, url);
-            if (content.indexOf(context.config.maketingText) === -1) {
+            if (content.toLowerCase().indexOf(context.config.maketingText.toLowerCase()) === -1) {
                 console.log(`maketingText: ${context.config.maketingText}\n content: ${content}`);
                 throw new FaucetError(ErrorCode.NoMaketingText, null);
             }
