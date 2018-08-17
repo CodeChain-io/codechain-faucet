@@ -10,4 +10,4 @@ Run `yarn pm2 install pm2-logrotate`
 Run
 =======
 
-Run `yarn pm2 ecosystem.config.js`
+Run `yarn pm2 start ecosystem.config.js`
