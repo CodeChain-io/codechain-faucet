@@ -55,7 +55,7 @@ async function main() {
         })
 
     } catch (err) {
-        console.error(`Error at main ${err}`);
+        console.error(`Error at main ${err}, ${JSON.stringify(err)}`);
     }
 }
 
