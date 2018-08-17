@@ -26,9 +26,7 @@ export async function createContext(): Promise<Context> {
         server: config.codechainURL
     });
 
-    const accountId = codechainSDK.util.getAccountIdFromPrivate(config.faucetPrivateKey);
-    const platformAddress = codechainSDK.key.classes.PlatformAddress.fromAccountId(accountId);
-    const nonce = (await codechainSDK.rpc.chain.getNonce(platformAddress)) || new U256(0);
+    const nonce = (await codechainSDK.rpc.chain.getNonce(config.faucetCodeChainAddress)) || new U256(0);
 
     const db = await new Promise<sqlite3.Database>((resolve, reject) => {
         const dbFileName = process.env.NODE_ENV === "production" ? "faucet.db" : ":memory:";

@@ -23,36 +23,19 @@ export async function giveCCC(context: Context, to: string, amount: string): Pro
         } catch (err) {
             throw new FaucetError(ErrorCode.InvalidAddress, err);
         }
-        const parcel = sdk.core.createPaymentParcel({
-            recipient: toAddress,
-            amount
-        });
 
-        const accountId = sdk.util.getAccountIdFromPrivate(context.config.faucetPrivateKey);
-        const platformAddress = sdk.key.classes.PlatformAddress.fromAccountId(accountId);
         let nonce = context.nonce;
-
-        let signedParcel = parcel.sign({
-            secret: context.config.faucetPrivateKey,
-            nonce,
-            fee: String(100 * 1000 * 1000),
-        })
-
         let result;
+
         try {
-            result = await sdk.rpc.chain.sendSignedParcel(signedParcel);
+            result = await giveCCCInternal(context, toAddress, amount, context.nonce);
         } catch (err) {
-            console.warn("Error from codechain " + err);
+            console.warn(`Error from codechain ${err.toString()}, ${JSON.stringify(err)}`);
             console.warn("Retry with refreshed nonce");
 
-            nonce = await sdk.rpc.chain.getNonce(platformAddress) as U256;
+            nonce = await sdk.rpc.chain.getNonce(context.config.faucetCodeChainAddress) as U256;
 
-            signedParcel = parcel.sign({
-                secret: context.config.faucetPrivateKey,
-                nonce,
-                fee: String(100 * 1000 * 1000),
-            })
-            result = await sdk.rpc.chain.sendSignedParcel(signedParcel);
+            result = await giveCCCInternal(context, toAddress, amount, nonce);
         }
 
         await historyModel.insert(context, to);
@@ -66,6 +49,21 @@ export async function giveCCC(context: Context, to: string, amount: string): Pro
             throw err;
         }
     }
+}
+
+async function giveCCCInternal(context: Context, toAddress: PlatformAddress, amount: string, nonce: U256): Promise<H256> {
+    const sdk = context.codechainSDK;
+    const parcel = sdk.core.createPaymentParcel({
+        recipient: toAddress,
+        amount
+    });
+
+    return sdk.rpc.chain.sendParcel(parcel, {
+        account: context.config.faucetCodeChainAddress,
+        passphrase: context.config.faucetCodeChainPasspharase,
+        nonce,
+        fee: String(100 * 1000 * 1000)
+    });
 }
 
 export function findCCCAddressFromText(text: string): string | null {
