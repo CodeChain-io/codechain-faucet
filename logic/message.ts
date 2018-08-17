@@ -5,22 +5,22 @@ export function errorMessage(context: Context, error: FaucetError): string {
     const { maketingText } = context.config;
     switch (error.code) {
         case ErrorCode.InvalidAddress:
-            return "Cannot find CodeChain address from your tweet";
+            return "Cannot find a CodeChain address from your tweet";
         case ErrorCode.Unknown:
-            return "Unknown server error. Please retry after some minuates later";
+            return "Unknown server error. Please retry after a few minutes";
         case ErrorCode.TooManyRequest:
-            return "Your address already received CCC. Try 24 hours later";
+            return "Your address already received CCC. Retry after 24 hours";
         case ErrorCode.InvalidTwitterURL:
             return "Twitter URL is not valid";
         case ErrorCode.NoMaketingText:
             return `Your tweet should contain '${maketingText}' `;
         case ErrorCode.InvalidCaptcha:
-            return "Unknown server error. Please retry after some minuates later";
+            return "Unknown server error. Please retry after a few minutes";
         case ErrorCode.DuplicatedTweet:
             return "This tweet is already used. Please create a new tweet";
         default:
             console.error("Invalid error code " + error.code);
-            return "Unknown server error. Please retry some minuates later";
+            return "Unknown server error. Please retry after a few minutes";
     }
 }
 
