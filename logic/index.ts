@@ -69,7 +69,7 @@ export async function giveCCC(context: Context, to: string, amount: string): Pro
 }
 
 export function findCCCAddressFromText(text: string): string | null {
-    const reg = /ccc\w{40}/g;
+    const reg = /tcc\w{40}/g;
     const matches = text.match(reg);
     if (matches === null) {
         return null;
