@@ -23,6 +23,7 @@ function onCaptchaSuccess(captchaResult) {
 }
 
 function showErrorMessage(text) {
+    $("#sns-url").addClass("error");
     $("#sns-url").popover({
         container: ".input-popover",
         content: text,
@@ -44,4 +45,5 @@ function showSuccessMessage(text) {
 
 function closeAllMessage() {
     $("#sns-url").popover("dispose");
+    $("#sns-url").removeClass("error");
 }

@@ -3,9 +3,11 @@ $faucet-gray: #F2F2F2
 
 body
   padding-top: 100px
+  padding-bottom: 100px
   background-color: $faucet-blue
   @media screen and (max-width: 575.98px)
     padding-top: 0
+    padding-bottom: 0
     background-color: $faucet-gray
   font-family: 'Montserrat', sans-serif
 
@@ -42,6 +44,7 @@ body
     display: block
 
 .section-2
+  margin-bottom: 30px
   h1
     color: #3A3FAB
     font-size: 36px
@@ -50,6 +53,13 @@ body
   span
     margin-top: 0
     font-size: 14px
+hr
+  width: 149px
+  color: #BDBDBD
+  margin-top: 0
+  margin-bottom: 0
+.section-3
+  margin-top: 30px
   .popover
     border: none
     border-radius: 0
@@ -61,12 +71,12 @@ body
     color: #F7603F
     font-size: 10px
   .steps
-    margin-top: 20px
+    font-weight: bold
   input
     margin: auto
     margin-top: 40px
     width: 100%
-    box-shadow: inset 0 0 5px #9E9E9E
+    box-shadow: inset 0 0 3px #9E9E9E
     &:disabled
       background-color: white
     &::-webkit-input-placeholder /* Chrome/Opera/Safari */
@@ -89,6 +99,8 @@ body
       color: #BDBDBD
       &.success
         color: #00DBB4
+    &.error
+      border-color: #F7603F
   .btn
     background-color: $faucet-blue
     color: white !important
@@ -98,8 +110,10 @@ body
     font-size: 14px
     font-weight: normal
 
-.section-3
+.section-4
   width: 100%
   margin: auto
-  margin-top: 30px
+  margin-top: 28.75px
+  h2
+    color: #F65632
   
