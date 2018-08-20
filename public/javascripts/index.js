@@ -41,6 +41,7 @@ function showSuccessMessage(text) {
     $("#sns-button").text("Check the transaction on the Explorer");
     $("#sns-button").off("click");
     $("#sns-button").prop("href", text).prop("target", "_blank");
+    $(".refresh").show();
 }
 
 function closeAllMessage() {
