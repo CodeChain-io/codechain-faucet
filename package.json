@@ -5,6 +5,8 @@
   "scripts": {
     "start": "ts-node ./bin/www.ts"
   },
+  "author": "CodeChain Team <codechain@kodebox.io>",
+  "license": "ISC",
   "dependencies": {
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
