@@ -1,5 +1,4 @@
 export interface ServerConfig {
-    faucetPrivateKey: string;
     faucetCodeChainAddress: string;
     faucetCodeChainPasspharase: string;
     codechainURL: string;
