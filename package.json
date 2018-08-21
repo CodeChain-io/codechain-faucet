@@ -6,7 +6,7 @@
     "start": "ts-node ./bin/www.ts"
   },
   "author": "CodeChain Team <codechain@kodebox.io>",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "dependencies": {
     "@types/request-promise": "^4.1.42",
     "codechain-sdk": "^0.1.0-alpha.18",
