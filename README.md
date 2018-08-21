@@ -22,7 +22,7 @@ You should set below fields in config/local.json
     "codechainURL": "http://127.0.0.1:8080",
     "twitterConsumerKey": "",
     "twitterConsumerSecret": "",
-    "maketingText": "I love CodeChain",
+    "marketingText": "I love CodeChain",
     "recaptchaSiteKey": "",
     "recaptchaSecret": "",
     "blockExplorerURL": "http://127.0.0.1:3000",

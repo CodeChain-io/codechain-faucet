@@ -2,7 +2,7 @@
     "codechainURL": "http://127.0.0.1:8080",
     "twitterConsumerKey": "",
     "twitterConsumerSecret": "",
-    "maketingText": "I love codechain",
+    "marketingText": "I love codechain",
     "recaptchaSiteKey": "",
     "recaptchaSecret": "",
     "blockExplorerURL": "http://127.0.0.1:3000",

@@ -4,7 +4,7 @@ export interface ServerConfig {
     codechainURL: string;
     twitterConsumerKey: string;
     twitterConsumerSecret: string;
-    maketingText: string;
+    marketingText: string;
     recaptchaSiteKey: string;
     recaptchaSecret: string;
     blockExplorerURL: string;

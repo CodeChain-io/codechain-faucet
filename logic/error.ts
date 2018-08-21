@@ -3,7 +3,7 @@ export enum ErrorCode {
     Unknown = 1,
     TooManyRequest = 2,
     InvalidTwitterURL = 3,
-    NoMaketingText = 4,
+    NoMarketingText = 4,
     InvalidCaptcha = 5,
     DuplicatedTweet = 6,
 }
