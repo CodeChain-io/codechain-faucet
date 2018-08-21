@@ -8,7 +8,7 @@ $(document).ready(function () {
 function onCaptchaSuccess(captchaResult) {
     var input = $("#sns-url").val();
     closeAllMessage();
-    $.post("./api/requestMoneyBySNS", {
+    $.post("/faucet/api/requestMoneyBySNS", {
         url: input,
         captcha: captchaResult
     }, function (data) {

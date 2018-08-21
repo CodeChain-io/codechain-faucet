@@ -28,13 +28,13 @@ export async function createApp(): Promise<[express.Application, Context]> {
         indentedSyntax: true, // true = .sass and false = .scss
         sourceMap: true
     }));
-    app.use(express.static(path.join(__dirname, "public")));
+    app.use("/faucet", express.static(path.join(__dirname, "public")));
     morganBody(app);
 
     const context = await createContext();
-    app.use("/", createIndexRouter(context));
-    app.use("/users", createUsersRouter(context));
-    app.use("/api", createApiRouter(context));
+    app.use("/faucet/", createIndexRouter(context));
+    app.use("/faucet/users", createUsersRouter(context));
+    app.use("/faucet/api", createApiRouter(context));
 
     // catch 404 and forward to error handler
     app.use((req, res, next) => {
