@@ -64,6 +64,57 @@ export async function giveCCC(
     }
 }
 
+export async function giveCCCTest(
+    context: Context,
+    to: string,
+    amount: string
+): Promise<H256> {
+    try {
+        const sdk = context.codechainSDK;
+
+        let toAddress;
+        try {
+            toAddress = sdk.key.classes.PlatformAddress.fromString(to);
+        } catch (err) {
+            throw new FaucetError(ErrorCode.InvalidAddress, err);
+        }
+
+        let nonce = context.nonce;
+        let result;
+
+        try {
+            result = await giveCCCInternal(
+                context,
+                toAddress,
+                amount,
+                context.nonce
+            );
+        } catch (err) {
+            console.warn(
+                `Error from codechain ${err.toString()}, ${JSON.stringify(err)}`
+            );
+            console.warn("Retry with refreshed nonce");
+
+            nonce = (await sdk.rpc.chain.getNonce(
+                context.config.faucetCodeChainAddress
+            )) as U256;
+
+            result = await giveCCCInternal(context, toAddress, amount, nonce);
+        }
+
+        await historyModel.insert(context, to);
+        context.nonce = nonce.increase();
+
+        return result;
+    } catch (err) {
+        if (err.name !== "FaucetError") {
+            throw new FaucetError(ErrorCode.Unknown, err);
+        } else {
+            throw err;
+        }
+    }
+}
+
 async function giveCCCInternal(
     context: Context,
     toAddress: PlatformAddress,

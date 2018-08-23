@@ -29,7 +29,7 @@ export function createRouter(context: Context) {
             ) {
                 console.log(
                     `marketingText: ${
-                        context.config.marketingText
+                    context.config.marketingText
                     }\n content: ${content}`
                 );
                 throw new FaucetError(ErrorCode.NoMarketingText, null);
@@ -42,6 +42,31 @@ export function createRouter(context: Context) {
             }
 
             const to = findCCCAddressFromText(content);
+            if (to === null) {
+                throw new FaucetError(ErrorCode.InvalidAddress, null);
+            }
+
+            const hash = await giveCCC(context, to, amount);
+            res.json({
+                success: true,
+                hash,
+                message: successMessage(context, hash.toEncodeObject())
+            });
+        } catch (err) {
+            res.json({
+                success: false,
+                err,
+                message: errorMessage(context, err)
+            });
+        }
+    });
+
+    router.post("/requestMoneySeulgi", async (req, res) => {
+        console.log(`req body is ${JSON.stringify(req.body)}`);
+        const { to } = req.body;
+
+        const amount = String(1000 * 1000 * 1000);
+        try {
             if (to === null) {
                 throw new FaucetError(ErrorCode.InvalidAddress, null);
             }
