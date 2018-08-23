@@ -17,3 +17,4 @@ indent_size = 4
 # npm inserts a final newline.
 [package.json]
 trim_trailing_whitespace = false
+indent_size = 2
