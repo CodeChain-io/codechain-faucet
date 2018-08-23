@@ -10,7 +10,7 @@ export function createTwit(config: ServerConfig): Twit {
         app_only_auth: true,
         timeout_ms: 60 * 1000,  // optional HTTP request timeout to apply to all requests.
         strictSSL: true,     // optional - requires SSL certificates to be valid.
-    } as any)
+    } as any);
 }
 
 export async function getTwitContent(context: Context, fullUrl: string): Promise<string> {

@@ -43,7 +43,7 @@ async function main() {
                     server.close((err: any) => {
                         if (err) { reject(err); return; }
                         resolve();
-                    })
+                    });
                 });
             } catch (err) {
                 console.error(`Error at closing ${err}`);
@@ -52,7 +52,7 @@ async function main() {
                 await closeContext(context);
                 process.exit();
             }
-        })
+        });
 
     } catch (err) {
         console.error(`Error at main ${err}, ${JSON.stringify(err)}`);
@@ -106,7 +106,7 @@ function onError(port: any): (error: any) => void {
             default:
                 throw error;
         }
-    }
+    };
 }
 
 /**
@@ -120,5 +120,5 @@ function onListening(server: any): () => void {
             ? "pipe " + addr
             : "port " + addr.port;
         debug("Listening on " + bind);
-    }
+    };
 }

@@ -49,7 +49,7 @@ export function createRouter(context: Context) {
                 success: false,
                 err,
                 message: errorMessage(context, err)
-            })
+            });
         }
     });
 

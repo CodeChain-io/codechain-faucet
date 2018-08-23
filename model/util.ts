@@ -5,7 +5,7 @@ export function asyncRun(db: sqlite3.Database, sql: string, params: any): Promis
         db.run(sql, params, (err: any) => {
             if (err) { reject(err); return; }
             resolve();
-        })
+        });
     });
 }
 
@@ -18,6 +18,6 @@ export function asyncGet<T>(db: sqlite3.Database, sql: string, params: any): Pro
             } else {
                 resolve(row);
             }
-        })
-    })
+        });
+    });
 }

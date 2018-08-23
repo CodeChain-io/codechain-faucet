@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "ts-node ./bin/www.ts"
+    "start": "ts-node ./bin/www.ts",
+    "lint": "tslint -p . --fix"
   },
   "author": "CodeChain Team <codechain@kodebox.io>",
   "license": "Apache-2.0",

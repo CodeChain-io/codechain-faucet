@@ -46,7 +46,7 @@ export async function createContext(): Promise<Context> {
         db,
         twit,
         nonce
-    }
+    };
 }
 
 export async function closeContext(context: Context): Promise<void> {
