@@ -26,7 +26,8 @@ export async function createApp(): Promise<[express.Application, Context]> {
         src: path.join(__dirname, "public"),
         dest: path.join(__dirname, "public"),
         indentedSyntax: true, // true = .sass and false = .scss
-        sourceMap: true
+        sourceMap: true,
+        prefix: "/faucet"
     }));
     app.use("/faucet", express.static(path.join(__dirname, "public")));
     morganBody(app);
