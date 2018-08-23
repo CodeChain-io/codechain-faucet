@@ -22,8 +22,16 @@ export function createRouter(context: Context) {
                 throw new FaucetError(ErrorCode.InvalidCaptcha, null);
             }
             const content = await getTwitContent(context, url);
-            if (content.toLowerCase().indexOf(context.config.marketingText.toLowerCase()) === -1) {
-                console.log(`marketingText: ${context.config.marketingText}\n content: ${content}`);
+            if (
+                content
+                    .toLowerCase()
+                    .indexOf(context.config.marketingText.toLowerCase()) === -1
+            ) {
+                console.log(
+                    `marketingText: ${
+                        context.config.marketingText
+                    }\n content: ${content}`
+                );
                 throw new FaucetError(ErrorCode.NoMarketingText, null);
             }
 

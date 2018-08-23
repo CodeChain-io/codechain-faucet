@@ -26,12 +26,19 @@ export async function createContext(): Promise<Context> {
         server: config.codechainURL
     });
 
-    const nonce = (await codechainSDK.rpc.chain.getNonce(config.faucetCodeChainAddress)) || new U256(0);
+    const nonce =
+        (await codechainSDK.rpc.chain.getNonce(
+            config.faucetCodeChainAddress
+        )) || new U256(0);
 
     const db = await new Promise<sqlite3.Database>((resolve, reject) => {
-        const dbFileName = process.env.NODE_ENV === "production" ? "faucet.db" : ":memory:";
+        const dbFileName =
+            process.env.NODE_ENV === "production" ? "faucet.db" : ":memory:";
         const newDB = new database(dbFileName, (err: Error) => {
-            if (err) { reject(err); return; }
+            if (err) {
+                reject(err);
+                return;
+            }
             resolve(newDB);
         });
     });
@@ -51,7 +58,7 @@ export async function createContext(): Promise<Context> {
 
 export async function closeContext(context: Context): Promise<void> {
     return new Promise<void>((resolve, reject) => {
-        context.db.close((err) => {
+        context.db.close(err => {
             if (err) {
                 reject(err);
                 return;

@@ -8,12 +8,15 @@ export function createTwit(config: ServerConfig): Twit {
         consumer_key: config.twitterConsumerKey,
         consumer_secret: config.twitterConsumerSecret,
         app_only_auth: true,
-        timeout_ms: 60 * 1000,  // optional HTTP request timeout to apply to all requests.
-        strictSSL: true,     // optional - requires SSL certificates to be valid.
+        timeout_ms: 60 * 1000, // optional HTTP request timeout to apply to all requests.
+        strictSSL: true // optional - requires SSL certificates to be valid.
     } as any);
 }
 
-export async function getTwitContent(context: Context, fullUrl: string): Promise<string> {
+export async function getTwitContent(
+    context: Context,
+    fullUrl: string
+): Promise<string> {
     try {
         const id = parseTwitterURL(fullUrl);
         if (id === null) {

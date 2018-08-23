@@ -5,7 +5,11 @@ import * as moment from "moment";
 import { FaucetError, ErrorCode } from "./error";
 import { PlatformAddress } from "codechain-sdk/lib/key/classes";
 
-export async function giveCCC(context: Context, to: string, amount: string): Promise<H256> {
+export async function giveCCC(
+    context: Context,
+    to: string,
+    amount: string
+): Promise<H256> {
     try {
         const sdk = context.codechainSDK;
 
@@ -28,12 +32,21 @@ export async function giveCCC(context: Context, to: string, amount: string): Pro
         let result;
 
         try {
-            result = await giveCCCInternal(context, toAddress, amount, context.nonce);
+            result = await giveCCCInternal(
+                context,
+                toAddress,
+                amount,
+                context.nonce
+            );
         } catch (err) {
-            console.warn(`Error from codechain ${err.toString()}, ${JSON.stringify(err)}`);
+            console.warn(
+                `Error from codechain ${err.toString()}, ${JSON.stringify(err)}`
+            );
             console.warn("Retry with refreshed nonce");
 
-            nonce = await sdk.rpc.chain.getNonce(context.config.faucetCodeChainAddress) as U256;
+            nonce = (await sdk.rpc.chain.getNonce(
+                context.config.faucetCodeChainAddress
+            )) as U256;
 
             result = await giveCCCInternal(context, toAddress, amount, nonce);
         }
@@ -51,7 +64,12 @@ export async function giveCCC(context: Context, to: string, amount: string): Pro
     }
 }
 
-async function giveCCCInternal(context: Context, toAddress: PlatformAddress, amount: string, nonce: U256): Promise<H256> {
+async function giveCCCInternal(
+    context: Context,
+    toAddress: PlatformAddress,
+    amount: string,
+    nonce: U256
+): Promise<H256> {
     const sdk = context.codechainSDK;
     const parcel = sdk.core.createPaymentParcel({
         recipient: toAddress,
