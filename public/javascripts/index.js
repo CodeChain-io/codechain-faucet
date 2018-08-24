@@ -3,13 +3,22 @@ $(document).ready(function () {
         $("#sns-button").prop('disabled', true);
         grecaptcha.execute();
     });
-    $("#tweet-button").click(() => {
-        var w = 600, h = 400;
+
+    function popup (w, h, url) {
         var l = screen.width/2 - w/2;
         var t = screen.height/2 - h/2;
-        var url = "https://twitter.com/intent/tweet?text=I+love+CodeChain%0A%3CYour+Platform+Account+Address+Here%3E%0AHusky CodeChain Testnet&via=codechain_io&url=https%3A%2F%2Fhusky.codechain.io";
         var default_option = "toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no";
         window.open(url, "popup", default_option + ", width=" + w + ",height=" + h + ",top=" + t + ",left=" + l); 
+    }
+    $("#tweet-button").click(() => {
+        var w = 600, h = 400;
+        var url = "https://twitter.com/intent/tweet?text=I+love+CodeChain%0A%3CYour+Platform+Account+Address+Here%3E%0AHusky CodeChain Testnet&via=codechain_io&url=https%3A%2F%2Fhusky.codechain.io";
+        popup (w, h, url);
+    });
+    $("#fb-button").click(() => {
+        var w = 640, h = 300;
+        var url = "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhusky.codechain.io%2F&display=popup&src=share_button";
+        popup (w, h, url);
     });
 });
 

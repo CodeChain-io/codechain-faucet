@@ -13,13 +13,19 @@ block content
     .section-3
       h2.steps Follow the steps
       p
-        | 1. Tweet "I love CodeChain" with your CodeChain address. Here is an <a target="_blank" href="https://twitter.com/PJuhyung/status/1030341568148860928">example tweet</a>.
+        | 1. Post "I love CodeChain" with your CodeChain address on Twitter / Facebook (make sure it's public).
+        br
+        | See examples:
+        | <a target="_blank" href="https://twitter.com/PJuhyung/status/1030341568148860928">Twitter</a> / 
+        | <a target="_black" href="https://www.facebook.com/hyunsik.jeong.505/posts/120672995543808">Facebook</a>
         br
         br
-        | 2. Paste the tweet's URL into the input box, and click the "Get CCC" button.
+        | 2.  Copy-paste the post's URL into the input box, and click the "Get CCC" button.
         br
-        a#tweet-button(href='#')
-          img(src='/faucet/images/tweet-button.png')
+        | <a target="_black" href="https://www.facebook.com/help/community/question/?id=282662498552845">How to copy the URL of a Facebook post</a>
+        br
+        img#tweet-button(src='/faucet/images/tweet-button.png')
+        img#fb-button(src='/faucet/images/fb-button.png')
     hr
     .section-4
       div#recaptcha.g-recaptcha(
@@ -28,7 +34,7 @@ block content
         data-size="invisible"
       )
       .input-popover
-      input#sns-url.form-control(type="text", name="sns-url" placeholder="Write tweet URL")
+      input#sns-url.form-control(type="text", name="sns-url" placeholder="Paste your post's URL")
       a#sns-button.btn.btn-blue Get CCC
       a.refresh(href="./", style="display: none;") Refresh
     .section-5
