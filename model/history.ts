@@ -21,15 +21,15 @@ export async function findLastRequestTime(
     return createdAt;
 }
 
-export async function existsByTweetId(
+export async function existsById(
     context: Context,
-    tweetId: string
+    postId: string
 ): Promise<boolean> {
     const row: any = await asyncGet(
         context.db,
-        "SELECT * FROM faucetHistory WHERE tweetId=$tweetId LIMIT 1",
+        "SELECT * FROM faucetHistory WHERE postId=$postId LIMIT 1",
         {
-            $tweetId: tweetId
+            $postId: postId
         }
     );
     if (row === null) {
@@ -38,12 +38,13 @@ export async function existsByTweetId(
     return true;
 }
 
-export async function insert(context: Context, address: string): Promise<void> {
+export async function insert(context: Context, address: string, postId: string): Promise<void> {
     await asyncRun(
         context.db,
-        "INSERT INTO faucetHistory (address, createdAt) VALUES ($address, $now)",
+        "INSERT INTO faucetHistory (address, createdAt, postId) VALUES ($address, $now, $postId)",
         {
             $address: address,
+            $postId: postId,
             $now: moment()
                 .utcOffset(9)
                 .toISOString()

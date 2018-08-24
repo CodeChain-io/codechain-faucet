@@ -3,7 +3,7 @@ import { ServerConfig } from "./logic/config";
 import * as sqlite3 from "sqlite3";
 import { initialize as dbInitialize } from "./model/initialize";
 import * as Twit from "twit";
-import { createTwit } from "./logic/twitter";
+import { createTwit } from "./logic/sns";
 import { U256 } from "codechain-sdk/lib/core/classes";
 
 let database = sqlite3.Database;

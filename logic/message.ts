@@ -5,19 +5,19 @@ export function errorMessage(context: Context, error: FaucetError): string {
     const { marketingText } = context.config;
     switch (error.code) {
         case ErrorCode.InvalidAddress:
-            return "Cannot find a CodeChain address from your tweet";
+            return "Cannot find a CodeChain address from your post";
         case ErrorCode.Unknown:
             return "Unknown server error. Please retry after a few minutes";
         case ErrorCode.TooManyRequest:
             return "Your address already received CCC. Retry after 24 hours";
-        case ErrorCode.InvalidTwitterURL:
-            return "Twitter URL is not valid";
+        case ErrorCode.InvalidURL:
+            return "The given URL is not valid";
         case ErrorCode.NoMarketingText:
-            return `Your tweet should contain '${marketingText}' `;
+            return `Your post should contain '${marketingText}' `;
         case ErrorCode.InvalidCaptcha:
             return "Unknown server error. Please retry after a few minutes";
-        case ErrorCode.DuplicatedTweet:
-            return "This tweet is already used. Please create a new tweet";
+        case ErrorCode.DuplicatedPost:
+            return "This post is already used. Please create a new post";
         case ErrorCode.NotAuthorizedForTest:
             return "Your test secret was wrong";
         default:
