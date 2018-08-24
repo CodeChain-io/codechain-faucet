@@ -8,7 +8,8 @@ import { PlatformAddress } from "codechain-sdk/lib/key/classes";
 export async function giveCCCWithLimit(
     context: Context,
     to: string,
-    amount: string
+    amount: string,
+    postId: string
 ): Promise<H256> {
     try {
         const sdk = context.codechainSDK;
@@ -30,7 +31,7 @@ export async function giveCCCWithLimit(
 
         const result = await giveCCCWithoutLimit(context, toAddress, amount);
 
-        await historyModel.insert(context, to);
+        await historyModel.insert(context, to, postId);
 
         return result;
     } catch (err) {

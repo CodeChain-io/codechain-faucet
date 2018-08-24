@@ -2,10 +2,10 @@ export enum ErrorCode {
     InvalidAddress = 0,
     Unknown = 1,
     TooManyRequest = 2,
-    InvalidTwitterURL = 3,
+    InvalidURL = 3,
     NoMarketingText = 4,
     InvalidCaptcha = 5,
-    DuplicatedTweet = 6,
+    DuplicatedPost = 6,
     NotAuthorizedForTest = 7
 }
 

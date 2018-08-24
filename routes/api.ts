@@ -1,7 +1,7 @@
 import * as express from "express";
 import { Context } from "../context";
 import { giveCCCWithLimit, giveCCCWithoutLimit } from "../logic";
-import { getTwitContent, parseTwitterURL } from "../logic/twitter";
+import { getTwitContent, getFacebookContent, parseURL, URLType } from "../logic/sns";
 import { FaucetError, ErrorCode } from "../logic/error";
 import { findCCCAddressFromText } from "../logic/index";
 import { verifyCaptcha } from "../logic/captcha";
@@ -21,7 +21,23 @@ export function createRouter(context: Context) {
             if (captchaResult === false) {
                 throw new FaucetError(ErrorCode.InvalidCaptcha, null);
             }
-            const content = await getTwitContent(context, url);
+
+            const parseResult = parseURL(url);
+            const postType = parseResult[0];
+            const postId = parseResult[1];
+
+            let content = "";
+
+            if (postType === URLType.Twitter) {
+                content = await getTwitContent(context, postId);
+            }
+            else if (postType === URLType.Facebook) {
+                content = await getFacebookContent(postId);
+            }
+            else {
+                throw new FaucetError(ErrorCode.Unknown, null);
+            }
+
             if (
                 content
                     .toLowerCase()
@@ -35,18 +51,17 @@ export function createRouter(context: Context) {
                 throw new FaucetError(ErrorCode.NoMarketingText, null);
             }
 
-            const tweetId = parseTwitterURL(url) as string;
-            const exists = await historyModel.existsByTweetId(context, tweetId);
+            const exists = await historyModel.existsById(context, postId);
             if (exists) {
-                throw new FaucetError(ErrorCode.DuplicatedTweet, null);
+                throw new FaucetError(ErrorCode.DuplicatedPost, null);
             }
 
             const to = findCCCAddressFromText(content);
             if (to === null) {
                 throw new FaucetError(ErrorCode.InvalidAddress, null);
             }
+            const hash = await giveCCCWithLimit(context, to, amount, postId);
 
-            const hash = await giveCCCWithLimit(context, to, amount);
             res.json({
                 success: true,
                 hash,
