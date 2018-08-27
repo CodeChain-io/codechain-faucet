@@ -49,31 +49,40 @@ export async function giveCCCWithoutLimit(
     amount: string
 ): Promise<H256> {
     const sdk = context.codechainSDK;
-
-    let nonce = context.nonce;
-    context.nonce = nonce.increase();
-    let result;
     try {
-        try {
-            result = await giveCCCInternal(
-                context,
-                toAddress,
-                amount,
-                context.nonce
-            );
-        } catch (err) {
-            console.warn(
-                `Error from codechain ${err.toString()}, ${JSON.stringify(err)}`
-            );
-            console.warn("Retry with refreshed nonce");
-
-            nonce = (await sdk.rpc.chain.getNonce(
-                context.config.faucetCodeChainAddress
-            )) as U256;
-
+        return await context.worker.pushJob<H256>(async () => {
+            let nonce = context.nonce;
             context.nonce = nonce.increase();
-            result = await giveCCCInternal(context, toAddress, amount, nonce);
-        }
+            let result: H256;
+            try {
+                result = await giveCCCInternal(
+                    context,
+                    toAddress,
+                    amount,
+                    context.nonce
+                );
+            } catch (err) {
+                console.warn(
+                    `Error from codechain ${err.toString()}, ${JSON.stringify(
+                        err
+                    )}`
+                );
+                console.warn("Retry with refreshed nonce");
+
+                nonce = (await sdk.rpc.chain.getNonce(
+                    context.config.faucetCodeChainAddress
+                )) as U256;
+
+                context.nonce = nonce.increase();
+                result = await giveCCCInternal(
+                    context,
+                    toAddress,
+                    amount,
+                    nonce
+                );
+            }
+            return result;
+        });
     } catch (err) {
         if (err.name !== "FaucetError") {
             throw new FaucetError(ErrorCode.Unknown, err);
@@ -81,8 +90,6 @@ export async function giveCCCWithoutLimit(
             throw err;
         }
     }
-
-    return result;
 }
 
 async function giveCCCInternal(

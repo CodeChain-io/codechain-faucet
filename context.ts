@@ -5,6 +5,7 @@ import { initialize as dbInitialize } from "./model/initialize";
 import * as Twit from "twit";
 import { createTwit } from "./logic/sns";
 import { U256 } from "codechain-sdk/lib/core/classes";
+import { Worker } from "./logic/worker";
 
 let database = sqlite3.Database;
 if (process.env.NODE_ENV !== "production") {
@@ -17,6 +18,7 @@ export interface Context {
     db: sqlite3.Database;
     twit: Twit;
     nonce: U256;
+    worker: Worker;
 }
 
 export async function createContext(): Promise<Context> {
@@ -47,17 +49,21 @@ export async function createContext(): Promise<Context> {
 
     const twit = createTwit(config);
 
+    const worker = new Worker();
+    worker.start().catch(console.error);
+
     return {
         codechainSDK,
         config,
         db,
         twit,
-        nonce
+        nonce,
+        worker
     };
 }
 
 export async function closeContext(context: Context): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
+    await new Promise<void>((resolve, reject) => {
         context.db.close(err => {
             if (err) {
                 reject(err);
@@ -66,4 +72,5 @@ export async function closeContext(context: Context): Promise<void> {
             resolve();
         });
     });
+    await context.worker.stop();
 }
