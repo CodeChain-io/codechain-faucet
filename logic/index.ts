@@ -4,7 +4,7 @@ import * as historyModel from "../model/history";
 import * as moment from "moment";
 import { FaucetError, ErrorCode } from "./error";
 import { PlatformAddress } from "codechain-sdk/lib/key/classes";
-import { getNonce, saveNonce } from "./nonce";
+import { getNonce } from "./nonce";
 
 export async function giveCCCWithLimit(
     context: Context,
@@ -51,14 +51,13 @@ export async function giveCCCWithoutLimit(
 ): Promise<H256> {
     try {
         return await context.worker.pushJob<H256>(async () => {
-            const nonce = await getNonce();
+            const nonce = await getNonce(context);
             const result = await giveCCCInternal(
                 context,
                 toAddress,
                 amount,
                 nonce
             );
-            await saveNonce(nonce.increase());
             return result;
         });
     } catch (err) {

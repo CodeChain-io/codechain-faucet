@@ -5,7 +5,6 @@ import { initialize as dbInitialize } from "./model/initialize";
 import * as Twit from "twit";
 import { createTwit } from "./logic/sns";
 import { Worker } from "./logic/worker";
-import { initializeNonce } from "./logic/nonce";
 
 let database = sqlite3.Database;
 if (process.env.NODE_ENV !== "production") {
@@ -26,8 +25,6 @@ export async function createContext(): Promise<Context> {
     const codechainSDK = new SDK({
         server: config.codechainURL
     });
-
-    await initializeNonce(codechainSDK, config);
 
     const db = await new Promise<sqlite3.Database>((resolve, reject) => {
         const dbFileName =
