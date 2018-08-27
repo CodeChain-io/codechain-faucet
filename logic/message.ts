@@ -18,6 +18,8 @@ export function errorMessage(context: Context, error: FaucetError): string {
             return "Unknown server error. Please retry after a few minutes";
         case ErrorCode.DuplicatedTweet:
             return "This tweet is already used. Please create a new tweet";
+        case ErrorCode.NotAuthorizedForTest:
+            return "Your test secret was wrong";
         default:
             console.error("Invalid error code " + error.code);
             return "Unknown server error. Please retry after a few minutes";

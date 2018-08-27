@@ -8,4 +8,6 @@ export interface ServerConfig {
     recaptchaSiteKey: string;
     recaptchaSecret: string;
     blockExplorerURL: string;
+    enableTestAPI: boolean;
+    testAPISecret: string;
 }

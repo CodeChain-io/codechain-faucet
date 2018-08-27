@@ -5,7 +5,7 @@ import * as moment from "moment";
 import { FaucetError, ErrorCode } from "./error";
 import { PlatformAddress } from "codechain-sdk/lib/key/classes";
 
-export async function giveCCC(
+export async function giveCCCWithLimit(
     context: Context,
     to: string,
     amount: string
@@ -28,9 +28,31 @@ export async function giveCCC(
             throw new FaucetError(ErrorCode.InvalidAddress, err);
         }
 
-        let nonce = context.nonce;
-        let result;
+        const result = await giveCCCWithoutLimit(context, toAddress, amount);
 
+        await historyModel.insert(context, to);
+
+        return result;
+    } catch (err) {
+        if (err.name !== "FaucetError") {
+            throw new FaucetError(ErrorCode.Unknown, err);
+        } else {
+            throw err;
+        }
+    }
+}
+
+export async function giveCCCWithoutLimit(
+    context: Context,
+    toAddress: PlatformAddress,
+    amount: string
+): Promise<H256> {
+    const sdk = context.codechainSDK;
+
+    let nonce = context.nonce;
+    context.nonce = nonce.increase();
+    let result;
+    try {
         try {
             result = await giveCCCInternal(
                 context,
@@ -48,13 +70,9 @@ export async function giveCCC(
                 context.config.faucetCodeChainAddress
             )) as U256;
 
+            context.nonce = nonce.increase();
             result = await giveCCCInternal(context, toAddress, amount, nonce);
         }
-
-        await historyModel.insert(context, to);
-        context.nonce = nonce.increase();
-
-        return result;
     } catch (err) {
         if (err.name !== "FaucetError") {
             throw new FaucetError(ErrorCode.Unknown, err);
@@ -62,6 +80,8 @@ export async function giveCCC(
             throw err;
         }
     }
+
+    return result;
 }
 
 async function giveCCCInternal(

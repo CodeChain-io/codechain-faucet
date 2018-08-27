@@ -1,6 +1,6 @@
 import * as express from "express";
 import { Context } from "../context";
-import { giveCCC } from "../logic";
+import { giveCCCWithLimit, giveCCCWithoutLimit } from "../logic";
 import { getTwitContent, parseTwitterURL } from "../logic/twitter";
 import { FaucetError, ErrorCode } from "../logic/error";
 import { findCCCAddressFromText } from "../logic/index";
@@ -46,7 +46,7 @@ export function createRouter(context: Context) {
                 throw new FaucetError(ErrorCode.InvalidAddress, null);
             }
 
-            const hash = await giveCCC(context, to, amount);
+            const hash = await giveCCCWithLimit(context, to, amount);
             res.json({
                 success: true,
                 hash,
@@ -60,6 +60,32 @@ export function createRouter(context: Context) {
             });
         }
     });
+
+    if (context.config.enableTestAPI) {
+        router.post("/testMoney", async (req, res) => {
+            const { to, secret } = req.body;
+
+            const amount = String(1000 * 1000 * 1000);
+            try {
+                if (secret !== context.config.testAPISecret) {
+                    throw new FaucetError(ErrorCode.NotAuthorizedForTest, null);
+                }
+
+                const hash = await giveCCCWithoutLimit(context, to, amount);
+                res.json({
+                    success: true,
+                    hash,
+                    message: successMessage(context, hash.toEncodeObject())
+                });
+            } catch (err) {
+                res.json({
+                    success: false,
+                    err,
+                    message: errorMessage(context, err)
+                });
+            }
+        });
+    }
 
     return router;
 }
