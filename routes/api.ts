@@ -1,7 +1,12 @@
 import * as express from "express";
 import { Context } from "../context";
 import { giveCCCWithLimit, giveCCCWithoutLimit } from "../logic";
-import { getTwitContent, getFacebookContent, parseURL, URLType } from "../logic/sns";
+import {
+    getTwitContent,
+    getFacebookContent,
+    parseURL,
+    URLType
+} from "../logic/sns";
 import { FaucetError, ErrorCode } from "../logic/error";
 import { findCCCAddressFromText } from "../logic/index";
 import { verifyCaptcha } from "../logic/captcha";
@@ -30,11 +35,9 @@ export function createRouter(context: Context) {
 
             if (postType === URLType.Twitter) {
                 content = await getTwitContent(context, postId);
-            }
-            else if (postType === URLType.Facebook) {
+            } else if (postType === URLType.Facebook) {
                 content = await getFacebookContent(postId);
-            }
-            else {
+            } else {
                 throw new FaucetError(ErrorCode.Unknown, null);
             }
 

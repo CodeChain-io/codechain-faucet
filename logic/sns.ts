@@ -30,9 +30,7 @@ export async function getTwitContent(
     }
 }
 
-export async function getFacebookContent(
-    id: string
-): Promise<string> {
+export async function getFacebookContent(id: string): Promise<string> {
     try {
         const options = {
             uri: `https://www.facebook.com/${id}`,
@@ -59,7 +57,7 @@ export async function getFacebookContent(
 
 export enum URLType {
     Twitter = 0,
-    Facebook = 1,
+    Facebook = 1
 }
 
 export function parseURL(url: string): [URLType, string] {

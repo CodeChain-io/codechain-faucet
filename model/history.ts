@@ -38,7 +38,11 @@ export async function existsById(
     return true;
 }
 
-export async function insert(context: Context, address: string, postId: string): Promise<void> {
+export async function insert(
+    context: Context,
+    address: string,
+    postId: string
+): Promise<void> {
     await asyncRun(
         context.db,
         "INSERT INTO faucetHistory (address, createdAt, postId) VALUES ($address, $now, $postId)",
