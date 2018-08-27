@@ -4,8 +4,8 @@ import * as sqlite3 from "sqlite3";
 import { initialize as dbInitialize } from "./model/initialize";
 import * as Twit from "twit";
 import { createTwit } from "./logic/sns";
-import { U256 } from "codechain-sdk/lib/core/classes";
 import { Worker } from "./logic/worker";
+import { initializeNonce } from "./logic/nonce";
 
 let database = sqlite3.Database;
 if (process.env.NODE_ENV !== "production") {
@@ -17,7 +17,6 @@ export interface Context {
     config: ServerConfig;
     db: sqlite3.Database;
     twit: Twit;
-    nonce: U256;
     worker: Worker;
 }
 
@@ -28,10 +27,7 @@ export async function createContext(): Promise<Context> {
         server: config.codechainURL
     });
 
-    const nonce =
-        (await codechainSDK.rpc.chain.getNonce(
-            config.faucetCodeChainAddress
-        )) || new U256(0);
+    await initializeNonce(codechainSDK, config);
 
     const db = await new Promise<sqlite3.Database>((resolve, reject) => {
         const dbFileName =
@@ -57,7 +53,6 @@ export async function createContext(): Promise<Context> {
         config,
         db,
         twit,
-        nonce,
         worker
     };
 }

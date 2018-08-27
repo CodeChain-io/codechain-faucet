@@ -4,6 +4,7 @@ import * as historyModel from "../model/history";
 import * as moment from "moment";
 import { FaucetError, ErrorCode } from "./error";
 import { PlatformAddress } from "codechain-sdk/lib/key/classes";
+import { getNonce, saveNonce } from "./nonce";
 
 export async function giveCCCWithLimit(
     context: Context,
@@ -48,39 +49,16 @@ export async function giveCCCWithoutLimit(
     toAddress: PlatformAddress,
     amount: string
 ): Promise<H256> {
-    const sdk = context.codechainSDK;
     try {
         return await context.worker.pushJob<H256>(async () => {
-            let nonce = context.nonce;
-            context.nonce = nonce.increase();
-            let result: H256;
-            try {
-                result = await giveCCCInternal(
-                    context,
-                    toAddress,
-                    amount,
-                    context.nonce
-                );
-            } catch (err) {
-                console.warn(
-                    `Error from codechain ${err.toString()}, ${JSON.stringify(
-                        err
-                    )}`
-                );
-                console.warn("Retry with refreshed nonce");
-
-                nonce = (await sdk.rpc.chain.getNonce(
-                    context.config.faucetCodeChainAddress
-                )) as U256;
-
-                context.nonce = nonce.increase();
-                result = await giveCCCInternal(
-                    context,
-                    toAddress,
-                    amount,
-                    nonce
-                );
-            }
+            const nonce = await getNonce();
+            const result = await giveCCCInternal(
+                context,
+                toAddress,
+                amount,
+                nonce
+            );
+            await saveNonce(nonce.increase());
             return result;
         });
     } catch (err) {
