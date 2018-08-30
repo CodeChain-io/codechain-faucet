@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "start": "ts-node ./bin/www.ts",
-    "lint": "tslint -p . --fix",
-    "fmt": "prettier '**/*.ts' --write",
-    "fmt-verify": "prettier '**/*.ts' -l"
+    "test": "yarn lint",
+    "lint": "tslint -p . && prettier '**/*.{ts,js,json}' -l",
+    "fmt": "tslint -p . --fix && prettier '**/*.{ts,js,json}' --write"
   },
   "author": "CodeChain Team <codechain@kodebox.io>",
   "license": "Apache-2.0",
