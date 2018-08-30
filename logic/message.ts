@@ -1,5 +1,5 @@
-import { FaucetError, ErrorCode } from "./error";
 import { Context } from "../context";
+import { ErrorCode, FaucetError } from "./error";
 
 export function errorMessage(context: Context, error: FaucetError): string {
     const { marketingText } = context.config;

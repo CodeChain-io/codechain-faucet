@@ -1,15 +1,15 @@
-import * as createError from "http-errors";
-import * as express from "express";
-import * as path from "path";
 import * as cookieParser from "cookie-parser";
+import * as express from "express";
+import * as createError from "http-errors";
 import * as logger from "morgan";
 import * as sassMiddleware from "node-sass-middleware";
+import * as path from "path";
 const morganBody = require("morgan-body");
 
+import { Context, createContext } from "./context";
 import { createRouter as createApiRouter } from "./routes/api";
 import { createRouter as createIndexRouter } from "./routes/index";
 import { createRouter as createUsersRouter } from "./routes/users";
-import { createContext, Context } from "./context";
 
 export async function createApp(): Promise<[express.Application, Context]> {
     const app = express();

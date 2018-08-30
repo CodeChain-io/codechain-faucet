@@ -3,9 +3,9 @@ export interface Job {
 }
 
 export class Worker {
-    jobs: Job[];
-    tryStop: boolean;
-    stopped: boolean;
+    public jobs: Job[];
+    public tryStop: boolean;
+    public stopped: boolean;
 
     constructor() {
         this.jobs = [];

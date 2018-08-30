@@ -1,10 +1,10 @@
 import { SDK } from "codechain-sdk";
-import { ServerConfig } from "./logic/config";
 import * as sqlite3 from "sqlite3";
-import { initialize as dbInitialize } from "./model/initialize";
 import * as Twit from "twit";
+import { ServerConfig } from "./logic/config";
 import { createTwit } from "./logic/sns";
 import { Worker } from "./logic/worker";
+import { initialize as dbInitialize } from "./model/initialize";
 
 let database = sqlite3.Database;
 if (process.env.NODE_ENV !== "production") {

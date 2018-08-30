@@ -1,9 +1,9 @@
-import { Context } from "context";
-import { U256, H256 } from "codechain-sdk/lib/core/classes";
-import * as historyModel from "../model/history";
-import * as moment from "moment";
-import { FaucetError, ErrorCode } from "./error";
+import { H256, U256 } from "codechain-sdk/lib/core/classes";
 import { PlatformAddress } from "codechain-sdk/lib/key/classes";
+import { Context } from "context";
+import * as moment from "moment";
+import * as historyModel from "../model/history";
+import { ErrorCode, FaucetError } from "./error";
 import { getNonce } from "./nonce";
 
 export async function giveCCCWithLimit(

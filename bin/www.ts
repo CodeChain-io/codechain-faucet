@@ -2,9 +2,9 @@
  * Module dependencies.
  */
 
+import * as debugModule from "debug";
 import { createApp } from "../app";
 import { closeContext } from "../context";
-import * as debugModule from "debug";
 const debug = debugModule("faucet:server");
 import * as http from "http";
 

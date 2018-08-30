@@ -1,5 +1,5 @@
-import { Context } from "../context";
 import * as rp from "request-promise";
+import { Context } from "../context";
 
 export async function verifyCaptcha(
     context: Context,

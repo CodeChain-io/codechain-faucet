@@ -9,7 +9,10 @@ export async function getNonce(context: Context): Promise<U256> {
 
     const parcels = await sdk.rpc.chain.getPendingParcels();
     for (const parcel of parcels) {
-        if (context.config.faucetCodeChainAddress === parcel.getSignerAddress().toString()) {
+        if (
+            context.config.faucetCodeChainAddress ===
+            parcel.getSignerAddress().toString()
+        ) {
             const pendingNonce = new U256(parcel.toJSON().nonce);
             if (pendingNonce.value.isGreaterThanOrEqualTo(nonce.value)) {
                 nonce = pendingNonce.increase();

@@ -1,17 +1,17 @@
 import * as express from "express";
 import { Context } from "../context";
 import { giveCCCWithLimit, giveCCCWithoutLimit } from "../logic";
+import { verifyCaptcha } from "../logic/captcha";
+import { ErrorCode, FaucetError } from "../logic/error";
+import { findCCCAddressFromText } from "../logic/index";
+import { errorMessage, successMessage } from "../logic/message";
 import {
-    getTwitContent,
     getFacebookContent,
+    getTwitContent,
     parseURL,
     URLType
 } from "../logic/sns";
-import { FaucetError, ErrorCode } from "../logic/error";
-import { findCCCAddressFromText } from "../logic/index";
-import { verifyCaptcha } from "../logic/captcha";
 import * as historyModel from "../model/history";
-import { successMessage, errorMessage } from "../logic/message";
 
 export function createRouter(context: Context) {
     const router = express.Router();

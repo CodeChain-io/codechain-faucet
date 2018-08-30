@@ -1,8 +1,8 @@
-import * as Twit from "twit";
-import * as rp from "request-promise";
-import { ServerConfig } from "./config";
 import { Context } from "context";
-import { FaucetError, ErrorCode } from "./error";
+import * as rp from "request-promise";
+import * as Twit from "twit";
+import { ServerConfig } from "./config";
+import { ErrorCode, FaucetError } from "./error";
 
 export function createTwit(config: ServerConfig): Twit {
     return new Twit({
