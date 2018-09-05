@@ -10,4 +10,5 @@ export interface ServerConfig {
     blockExplorerURL: string;
     enableTestAPI: boolean;
     testAPISecret: string;
+    googleAnalyticsId: string;
 }

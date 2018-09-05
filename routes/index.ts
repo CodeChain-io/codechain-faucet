@@ -7,7 +7,8 @@ export function createRouter(context: Context) {
     router.get("/", (req, res) => {
         res.render("index", {
             title: "CodeChain Faucet",
-            recaptchaSiteKey: context.config.recaptchaSiteKey
+            recaptchaSiteKey: context.config.recaptchaSiteKey,
+            googleAnalyticsId: context.config.googleAnalyticsId
         });
     });
 

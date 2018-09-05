@@ -9,5 +9,6 @@
     "faucetCodeChainAddress": "",
     "faucetCodeChainPasspharase": "",
     "enableTestAPI": false,
-    "testAPISecret": ""
+    "testAPISecret": "",
+    "googleAnalyticsId": ""
 }
