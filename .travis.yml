@@ -4,6 +4,5 @@ node_js:
 before_install:
   - yarn install
 script:
-  - yarn tslint -p .
-  - yarn fmt-verify
+  - yarn test
 cache: yarn
