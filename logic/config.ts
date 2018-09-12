@@ -11,4 +11,6 @@ export interface ServerConfig {
     enableTestAPI: boolean;
     testAPISecret: string;
     googleAnalyticsId: string;
+    facebookExampleURL: string;
+    twitterExampleURL: string;
 }
