@@ -31,5 +31,9 @@ html
       gtag('js', new Date());
 
       gtag('config', '!{googleAnalyticsId}');
+    script.
+      window.faucetConfig = window.faucetConfig || {};
+      window.faucetConfig.marketingText = "!{marketingText}"
+      window.faucetConfig.twitterShareText = "!{twitterShareText};"
   body
     block content

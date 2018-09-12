@@ -27,7 +27,9 @@ $(document).ready(function() {
         var w = 600;
         var h = 400;
         var url =
-            "https://twitter.com/intent/tweet?text=I+love+CodeChain%0A%3CYour+Platform+Account+Address+Here%3E%0AHusky CodeChain Testnet&via=codechain_io&url=https%3A%2F%2Fhusky.codechain.io";
+            "https://twitter.com/intent/tweet?text=" +
+            window.faucetConfig.twitterShareText +
+            "&via=codechain_io&url=https%3A%2F%2Fhusky.codechain.io";
         popup(w, h, url);
     });
     $("#fb-button").click(() => {
