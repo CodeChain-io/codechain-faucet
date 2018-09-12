@@ -8,7 +8,8 @@ export function createRouter(context: Context) {
         res.render("index", {
             title: "CodeChain Faucet",
             recaptchaSiteKey: context.config.recaptchaSiteKey,
-            googleAnalyticsId: context.config.googleAnalyticsId
+            googleAnalyticsId: context.config.googleAnalyticsId,
+            marketingText: context.config.marketingText
         });
     });
 
