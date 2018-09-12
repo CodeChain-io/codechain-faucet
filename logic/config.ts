@@ -13,4 +13,5 @@ export interface ServerConfig {
     googleAnalyticsId: string;
     facebookExampleURL: string;
     twitterExampleURL: string;
+    twitterShareText: string;
 }

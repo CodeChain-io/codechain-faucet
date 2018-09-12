@@ -12,8 +12,7 @@ export function createRouter(context: Context) {
             marketingText: context.config.marketingText,
             facebookExampleURL: context.config.facebookExampleURL,
             twitterExampleURL: context.config.twitterExampleURL,
-            twitterShareText:
-                "I%20love%20CodeChain%0A%3CYour%20Platform%20Account%20Address%20Here%3E%0AHusky%20CodeChain%20Testnet"
+            twitterShareText: encodeURI(context.config.twitterShareText)
         });
     });
 
