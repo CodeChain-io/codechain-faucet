@@ -6,7 +6,7 @@ html
     meta(name="viewport", content="width=device-width, initial-scale=1")
     link(rel="icon", type="image/png", href="/faucet/favicon.png")
     meta(name='twitter:card', content='summary_large_image')
-    meta(property='og:url', content='https://husky.codechain.io/faucet')
+    meta(property='og:url', content=faucetURL)
     meta(property='og:title', content='Faucet For Husky')
     meta(property='og:description', content='Get CCC for the Husky test network')
     meta(property='og:image', content='https://husky.codechain.io/faucet/images/og_image.png')
@@ -33,7 +33,9 @@ html
       gtag('config', '!{googleAnalyticsId}');
     script.
       window.faucetConfig = window.faucetConfig || {};
-      window.faucetConfig.marketingText = "!{marketingText}"
-      window.faucetConfig.twitterShareText = "!{twitterShareText};"
+      window.faucetConfig.marketingText = "!{marketingText}";
+      window.faucetConfig.twitterShareText = "!{twitterShareText}";
+      window.faucetConfig.testnetURL = "!{testnetURL}";
+      window.faucetConfig.faucetURL = "!{faucetURL}";
   body
     block content

@@ -29,14 +29,17 @@ $(document).ready(function() {
         var url =
             "https://twitter.com/intent/tweet?text=" +
             window.faucetConfig.twitterShareText +
-            "&via=codechain_io&url=https%3A%2F%2Fhusky.codechain.io";
+            "&via=codechain_io&url=" +
+            window.faucetConfig.testnetURL;
         popup(w, h, url);
     });
     $("#fb-button").click(() => {
         var w = 640;
         var h = 300;
         var url =
-            "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhusky.codechain.io%2F&display=popup&src=share_button";
+            "https://www.facebook.com/sharer/sharer.php?u=" +
+            window.faucetConfig.testnetURL +
+            "&display=popup&src=share_button";
         popup(w, h, url);
     });
 });

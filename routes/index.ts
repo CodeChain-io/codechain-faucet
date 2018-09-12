@@ -12,7 +12,9 @@ export function createRouter(context: Context) {
             marketingText: context.config.marketingText,
             facebookExampleURL: context.config.facebookExampleURL,
             twitterExampleURL: context.config.twitterExampleURL,
-            twitterShareText: encodeURI(context.config.twitterShareText)
+            twitterShareText: encodeURI(context.config.twitterShareText),
+            testnetURL: context.config.testnetURL,
+            faucetURL: context.config.faucetURL
         });
     });
 

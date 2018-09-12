@@ -14,4 +14,6 @@ export interface ServerConfig {
     facebookExampleURL: string;
     twitterExampleURL: string;
     twitterShareText: string;
+    faucetURL: string;
+    testnetURL: string;
 }

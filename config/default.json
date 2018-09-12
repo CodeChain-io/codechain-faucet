@@ -11,6 +11,8 @@
     "enableTestAPI": false,
     "testAPISecret": "",
     "googleAnalyticsId": "",
+    "faucetURL": "https://husky.codechain.io/faucet",
+    "testnetURL": "https://husky.codechain.io",
     "facebookExampleURL": "https://www.facebook.com/majecty/posts/1970196229713167",
     "twitterExampleURL": "https://twitter.com/PJuhyung/status/1030341568148860928",
     "twitterShareText": "I love CodeChain\n<Your Platform Account Address Here>\nHusky CodeChain Testnet"
