@@ -59,7 +59,7 @@ export function createRouter(context: Context) {
                 throw new FaucetError(ErrorCode.DuplicatedPost, null);
             }
 
-            const to = findCCCAddressFromText(content);
+            const to = findCCCAddressFromText(context, content);
             if (to === null) {
                 throw new FaucetError(ErrorCode.InvalidAddress, null);
             }

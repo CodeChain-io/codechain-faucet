@@ -89,8 +89,11 @@ async function giveCCCInternal(
     });
 }
 
-export function findCCCAddressFromText(text: string): string | null {
-    const reg = /tcc\w{40}/g;
+export function findCCCAddressFromText(
+    context: Context,
+    text: string
+): string | null {
+    const reg = new RegExp(`${context.config.networkId}c\\w{40}`, "g");
     const matches = text.match(reg);
     if (matches === null) {
         return null;

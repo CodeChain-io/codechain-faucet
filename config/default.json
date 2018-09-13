@@ -15,5 +15,6 @@
     "testnetURL": "https://husky.codechain.io",
     "facebookExampleURL": "https://www.facebook.com/majecty/posts/1970196229713167",
     "twitterExampleURL": "https://twitter.com/PJuhyung/status/1030341568148860928",
-    "twitterShareText": "<Your Platform Account Address Here>\nTesting #CodeChain's Husky testnet"
+    "twitterShareText": "<Your Platform Account Address Here>\nTesting #CodeChain's Husky testnet",
+    "networkId": "tc"
 }

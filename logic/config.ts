@@ -16,4 +16,5 @@ export interface ServerConfig {
     twitterShareText: string;
     faucetURL: string;
     testnetURL: string;
+    networkId: string;
 }
