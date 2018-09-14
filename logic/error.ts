@@ -24,5 +24,8 @@ export class FaucetError extends Error {
         this.name = "FaucetError";
         this.internal = internal;
         this.internalString = String(internal);
+        if (internal) {
+            console.error(internal);
+        }
     }
 }
