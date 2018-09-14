@@ -38,7 +38,10 @@ export function createRouter(context: Context) {
             } else if (postType === URLType.Facebook) {
                 content = await getFacebookContent(postId);
             } else {
-                throw new FaucetError(ErrorCode.Unknown, null);
+                throw new FaucetError(
+                    ErrorCode.Unknown,
+                    new Error("Invalid postType")
+                );
             }
 
             if (
