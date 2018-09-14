@@ -39,7 +39,7 @@ export async function getFacebookContent(id: string): Promise<string> {
             }
         };
         const result = await rp(options);
-        const reg = /<div[^>]*userContent[^>]*>(.*)<\/div>/gm;
+        const reg = /<div[^>]*userContent[^\w][^>]*>(.*?)<\/div>/gm;
         const postContent = reg.exec(result);
 
         if (postContent === null) {
