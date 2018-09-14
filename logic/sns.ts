@@ -3,6 +3,7 @@ import * as rp from "request-promise";
 import * as Twit from "twit";
 import { ServerConfig } from "./config";
 import { ErrorCode, FaucetError } from "./error";
+const cheerio = require("cheerio");
 
 export function createTwit(config: ServerConfig): Twit {
     return new Twit({
@@ -45,7 +46,9 @@ export async function getFacebookContent(id: string): Promise<string> {
         if (postContent === null) {
             throw new FaucetError(ErrorCode.NoContentFromFacebookURL, null);
         }
-        return postContent[1];
+
+        const $ = cheerio.load(postContent[1]);
+        return $.text();
     } catch (err) {
         if (err.name !== "FaucetError") {
             throw new FaucetError(ErrorCode.InvalidURL, err);
