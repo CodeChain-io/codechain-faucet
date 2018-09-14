@@ -6,7 +6,8 @@ export enum ErrorCode {
     NoMarketingText = 4,
     InvalidCaptcha = 5,
     DuplicatedPost = 6,
-    NotAuthorizedForTest = 7
+    NotAuthorizedForTest = 7,
+    NoContentFromFacebookURL = 8
 }
 
 export class FaucetError extends Error {

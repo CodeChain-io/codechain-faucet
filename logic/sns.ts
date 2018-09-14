@@ -43,7 +43,7 @@ export async function getFacebookContent(id: string): Promise<string> {
         const postContent = reg.exec(result);
 
         if (postContent === null) {
-            throw new FaucetError(ErrorCode.Unknown, null);
+            throw new FaucetError(ErrorCode.NoContentFromFacebookURL, null);
         }
         return postContent[1];
     } catch (err) {

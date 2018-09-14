@@ -20,6 +20,8 @@ export function errorMessage(context: Context, error: FaucetError): string {
             return "This post is already used. Please create a new post";
         case ErrorCode.NotAuthorizedForTest:
             return "Your test secret was wrong";
+        case ErrorCode.NoContentFromFacebookURL:
+            return "Maybe your post is not public";
         default:
             console.error("Invalid error code " + error.code);
             return "Unknown server error. Please retry after a few minutes";
