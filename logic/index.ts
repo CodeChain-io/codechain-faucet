@@ -1,5 +1,4 @@
-import { H256, U256 } from "codechain-sdk/lib/core/classes";
-import { PlatformAddress } from "codechain-sdk/lib/key/classes";
+import { H256, PlatformAddress, U256 } from "codechain-sdk/lib/core/classes";
 import { Context } from "context";
 import * as moment from "moment";
 import * as historyModel from "../model/history";
@@ -13,8 +12,6 @@ export async function giveCCCWithLimit(
     postId: string
 ): Promise<H256> {
     try {
-        const sdk = context.codechainSDK;
-
         const lastTime = await historyModel.findLastRequestTime(context, to);
         if (lastTime !== null) {
             const yesterday = moment().subtract(1, "day");
@@ -25,7 +22,7 @@ export async function giveCCCWithLimit(
 
         let toAddress;
         try {
-            toAddress = sdk.key.classes.PlatformAddress.fromString(to);
+            toAddress = PlatformAddress.fromString(to);
         } catch (err) {
             throw new FaucetError(ErrorCode.InvalidAddress, err);
         }
