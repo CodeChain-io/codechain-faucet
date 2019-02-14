@@ -30,5 +30,5 @@ export function errorMessage(context: Context, error: FaucetError): string {
 
 export function successMessage(context: Context, hash: string): string {
     const { blockExplorerURL } = context.config;
-    return `${blockExplorerURL}/parcel/${hash}`;
+    return `${blockExplorerURL}/transaction/${hash}`;
 }
