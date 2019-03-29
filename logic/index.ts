@@ -82,7 +82,7 @@ async function giveCCCInternal(
         account: context.config.faucetCodeChainAddress,
         passphrase: context.config.faucetCodeChainPasspharase,
         seq,
-        fee: String(100 * 1000 * 1000)
+        fee: String(100)
     });
 }
 

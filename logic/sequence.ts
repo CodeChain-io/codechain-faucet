@@ -5,7 +5,7 @@ export async function getSeq(context: Context): Promise<number> {
     let seq = await sdk.rpc.chain.getSeq(context.config.faucetCodeChainAddress);
 
     const pendingTransactions = await sdk.rpc.chain.getPendingTransactions();
-    for (const pendingTransaction of pendingTransactions) {
+    for (const pendingTransaction of pendingTransactions.transactions) {
         if (
             context.config.faucetCodeChainAddress ===
             pendingTransaction
@@ -14,9 +14,9 @@ export async function getSeq(context: Context): Promise<number> {
                 })
                 .toString()
         ) {
-            const pendingSeq = pendingTransaction.toJSON().seq;
+            const pendingSeq = pendingTransaction.toJSON().seq!;
             if (pendingSeq >= seq) {
-                seq = pendingSeq.increase();
+                seq = pendingSeq + 1;
             }
         }
     }

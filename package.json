@@ -12,7 +12,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
-    "codechain-sdk": "https://github.com/foriequal0/codechain-sdk-js.git#build/mandatory-supply",
+    "codechain-sdk": "https://github.com/sgkim126/codechain-sdk-js.git#result-lib",
     "config": "^2.0.1",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
