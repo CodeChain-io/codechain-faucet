@@ -6,6 +6,7 @@
     "recaptchaSiteKey": "",
     "recaptchaSecret": "",
     "blockExplorerURL": "http://127.0.0.1:3000",
+    "keyStorePath": "keystore.db",
     "faucetCodeChainAddress": "",
     "faucetCodeChainPasspharase": "",
     "enableTestAPI": false,

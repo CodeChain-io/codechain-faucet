@@ -77,13 +77,14 @@ async function giveCCCInternal(
         recipient: toAddress,
         quantity
     });
-
-    return sdk.rpc.chain.sendTransaction(pay, {
+    const signed = await sdk.key.signTransaction(pay, {
         account: context.config.faucetCodeChainAddress,
         passphrase: context.config.faucetCodeChainPasspharase,
         seq,
         fee: String(100)
     });
+
+    return sdk.rpc.chain.sendSignedTransaction(signed);
 }
 
 export function findCCCAddressFromText(

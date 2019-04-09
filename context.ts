@@ -24,7 +24,11 @@ export async function createContext(): Promise<Context> {
 
     const codechainSDK = new SDK({
         server: config.codechainURL,
-        networkId: config.networkId
+        networkId: config.networkId,
+        keyStoreType: {
+            type: "local",
+            path: config.keyStorePath
+        }
     });
 
     const db = await new Promise<sqlite3.Database>((resolve, reject) => {
