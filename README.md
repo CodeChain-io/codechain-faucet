@@ -7,10 +7,7 @@ Install
 --------
 
 Run `yarn install`
-
-Run `yarn pm2 install typescript`
-
-Run `yarn pm2 install pm2-logrotate`
+Run `yarn run build`
 
 Config
 ------
@@ -38,4 +35,4 @@ To run this site, you need CodeChain platform address with sufficient CCC. Set `
 Run
 ----
 
-Run `yarn pm2 start ecosystem.config.js`
+Run `NODE_ENV=production yarn run start`
